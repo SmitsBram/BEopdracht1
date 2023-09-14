@@ -66,4 +66,18 @@ class InstructeurModel
 
         return $this->db->single();
     }
+    public function wijzigVoertuigGegevens($Id, $nieuwType, $nieuweBrandstof, $nieuwKenteken)
+{
+    $sql = "UPDATE Voertuig
+            SET Type = :nieuwType, Brandstof = :nieuweBrandstof, Kenteken = :nieuwKenteken
+            WHERE Id = :voertuigId";
+
+    $this->db->query($sql);
+    $this->db->bind(':nieuwType', $nieuwType);
+    $this->db->bind(':nieuweBrandstof', $nieuweBrandstof);
+    $this->db->bind(':nieuwKenteken', $nieuwKenteken);
+    $this->db->bind(':voertuigId', $Id);
+
+    return $this->db->execute();
+}
 }

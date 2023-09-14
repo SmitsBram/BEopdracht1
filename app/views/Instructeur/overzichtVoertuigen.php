@@ -37,6 +37,7 @@
             <th>Bouwjaar</th>
             <th>Brandstof</th>
             <th>RijbewijsCategorie</th>
+            <th>Wijzigen</th>
         </thead>
         <tbody>
             <?= $data['tableRows']; ?>

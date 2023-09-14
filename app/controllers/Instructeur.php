@@ -107,4 +107,34 @@ class Instructeur extends BaseController
 
 
     }
+
+    public function wijzigenGegevens($Id)
+    {
+        // Haal de instructeurinformatie op
+        $instructeurInfo = $this->instructeurModel->getInstructeurById($Id);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Verwerk het formulier indien ingediend
+
+            // Hier kun je de gegevens uit het POST-verzoek halen en valideren.
+            // Bijvoorbeeld:
+            $nieuwType = $_POST['nieuwType'];
+            $nieuweBrandstof = $_POST['nieuweBrandstof'];
+            $nieuwKenteken = $_POST['nieuwKenteken'];
+
+            // Voer de updatequery uit om de gegevens te wijzigen
+            $this->instructeurModel->wijzigVoertuigGegevens($Id, $nieuwType, $nieuweBrandstof, $nieuwKenteken);
+
+            // Stuur de gebruiker terug naar het overzicht van voertuigen
+            header("Location: " . URLROOT . "/instructeur/overzichtvoertuigen/$Id");
+        } else {
+            // Laat het formulier zien om gegevens te wijzigen
+            $data = [
+                'title' => 'Wijzig Voertuiggegevens',
+                'instructeurInfo' => $instructeurInfo
+            ];
+
+            $this->view('Instructeur/wijzigenGegevens', $data);
+        }
+    }
 }
