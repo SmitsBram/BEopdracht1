@@ -19,6 +19,7 @@
 
         <label for="nieuwKenteken">Nieuw Kenteken:</label>
         <input type="text" name="nieuwKenteken" required><br>
+        
 
         <input type="submit" value="Opslaan">
     </form>
