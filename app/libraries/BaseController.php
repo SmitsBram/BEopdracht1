@@ -5,11 +5,13 @@ class BaseController
 
     public function view($view, $data = [])
     {
+        require_once('../app/views/Includes/header.php');
         if ( file_exists('../app/views/' . $view . '.php')) {
             require_once('../app/views/' . $view . '.php');
         } else {
             echo 'De view bestaat niet';
         }
+        require_once('../app/views/Includes/footer.php');
 
     }
 

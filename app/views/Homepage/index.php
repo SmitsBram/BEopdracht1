@@ -10,5 +10,6 @@
 <body>
     <h3><?= $data['title']; ?></h3>
     <a href="<?= URLROOT; ?>/Instructeur/overzichtinstructeur">Instructeurs in dienst</a> 
+    <a href="<?= URLROOT; ?>/Register/index">Registeren</a>
 </body>
 </html>

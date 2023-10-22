@@ -38,6 +38,7 @@
             <th>Brandstof</th>
             <th>RijbewijsCategorie</th>
             <th>Wijzigen</th>
+            <th>Verwijderen</th>
         </thead>
         <tbody>
             <?= $data['tableRows']; ?>

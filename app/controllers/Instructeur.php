@@ -89,7 +89,17 @@ class Instructeur extends BaseController
                                     <td>$voertuig->Kenteken</td>
                                     <td>$date_formatted</td>
                                     <td>$voertuig->Brandstof</td>
-                                    <td>$voertuig->RijbewijsCategorie</td>            
+                                    <td>$voertuig->RijbewijsCategorie</td>   
+                                    <td>
+                                        <a href='" . URLROOT . "/instructeur/updatevoertuig/$voertuig->Id'>
+                                            <i class='bi bi-pencil-square'></i>
+                                        </a>         
+                                    </td>
+                                    <td>
+                                        <a href='" . URLROOT . "/instructeur/deletevoertuig/$voertuig->Id'>
+                                            <i class='bi bi-trash'></i>
+                                        </a>
+                                    </td>
                             </tr>";
             }
         }
@@ -108,33 +118,39 @@ class Instructeur extends BaseController
 
     }
 
-    public function wijzigenGegevens($Id)
-    {
-        // Haal de instructeurinformatie op
-        $instructeurInfo = $this->instructeurModel->getInstructeurById($Id);
 
+    public function updateVoertuig($id) {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Verwerk het formulier indien ingediend
-
-            // Hier kun je de gegevens uit het POST-verzoek halen en valideren.
-            // Bijvoorbeeld:
-            $nieuwType = $_POST['nieuwType'];
-            $nieuweBrandstof = $_POST['nieuweBrandstof'];
-            $nieuwKenteken = $_POST['nieuwKenteken'];
-
-            // Voer de updatequery uit om de gegevens te wijzigen
-            $this->instructeurModel->wijzigVoertuigGegevens($Id, $nieuwType, $nieuweBrandstof, $nieuwKenteken);
-
-            // Stuur de gebruiker terug naar het overzicht van voertuigen
-            header("Location: " . URLROOT . "/instructeur/overzichtvoertuigen/$Id");
+            // Haal de gegevens op van het formulier
+            $typeVoertuig = $_POST['typeVoertuig'];
+            $type = $_POST['type'];
+            $kenteken = $_POST['kenteken'];
+            $bouwjaar = $_POST['bouwjaar'];
+            $brandstof = $_POST['brandstof'];
+            $rijbewijsCategorie = $_POST['rijbewijsCategorie'];
+    
+            // Voer de update query uit met de gegevens
+            $this->instructeurModel->updateVoertuig($id, $typeVoertuig, $type, $kenteken, $bouwjaar, $brandstof, $rijbewijsCategorie);
+    
+            // Stuur de gebruiker door naar een overzichtspagina of een andere gewenste locatie
+            header('Location: ' . URLROOT . '/instructeur/overzichtVoertuigen');
         } else {
-            // Laat het formulier zien om gegevens te wijzigen
+            // Haal de voertuiginformatie op om weer te geven in het updateformulier
+            $voertuig = $this->instructeurModel->getVoertuigById($id);
+            // Toon het updateformulier met de bestaande gegevens
             $data = [
-                'title' => 'Wijzig Voertuiggegevens',
-                'instructeurInfo' => $instructeurInfo
+                'voertuig' => $voertuig
             ];
-
-            $this->view('Instructeur/wijzigenGegevens', $data);
+            $this->view('Voertuig/updateVoertuig', $data);
         }
     }
+    
+    public function deleteVoertuig($id) {
+        // Voer de verwijderquery uit met de voertuig-ID
+        $this->instructeurModel->deleteVoertuig($id);
+        // Stuur de gebruiker door naar een overzichtspagina of een andere gewenste locatie
+        header('Location: ' . URLROOT . '/instructeur/overzichtVoertuigen');
+    }
+    
+    
 }

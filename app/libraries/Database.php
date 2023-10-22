@@ -40,5 +40,20 @@ class Database
         return $this->statement->fetch(PDO::FETCH_OBJ);
     }
 
+    public function execute()
+    {
+        return $this->statement->execute();
+    }
 
+
+    public function bind ($parameter, $value, $type)
+    {
+        $this->statement->bindValue($parameter, $value, $type);
+    }
+
+    public function lastInsertedId()
+    {
+        return $this->dbHandler->lastInsertedId();
+
+    }
 }
